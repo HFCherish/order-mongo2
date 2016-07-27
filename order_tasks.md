@@ -29,7 +29,7 @@
 	4. should the creation uri contains user _id in header location -- 2 :: 2
 11. get one user
     1. should 200 when get some user --5 :: 4
-    1. should contains right uri, name, _id info when get user --4
+    1. should contains right uri, name, _id info when get user --4 :: 2
     1. should 404 when user doesn't exist --1
 18. order creation
 	18. should return 201 when creating an order (resource.post) --8
