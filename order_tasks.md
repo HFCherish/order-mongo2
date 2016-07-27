@@ -15,8 +15,7 @@
 6. get all products
 	1. should return 200 when get products (resource.get) --2 :: 2
 	3. --------------------------------------------------
-	2. should have tried to search from database and should able to get a least one product if database is not empty (repo.findAll) --2
-	3. should that one product's _id are the same as expected (mapper-findAll) --2
+	2. should have tried to search from database and should able to get a least one product if database is not empty and that one product's _id are the same as expected (mapper-findAll) --4 :: 4
 	3. --------------------------------------------------
 	2. should the response body contains at least  one item info and contains right uri, name, description, price info (resource.get, record) --2
 11. user register

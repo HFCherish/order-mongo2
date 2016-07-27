@@ -5,6 +5,7 @@ import com.thoughtworks.ketsu.domain.products.ProductRepository;
 import com.thoughtworks.ketsu.infrastructure.mongo.mappers.ProductMapper;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -20,5 +21,10 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Optional<Product> findById(String productId) {
         return Optional.ofNullable(productMapper.findById(productId));
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return productMapper.findAll();
     }
 }

@@ -1,14 +1,13 @@
 package com.thoughtworks.ketsu.Dao;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
+import com.mongodb.*;
 import com.thoughtworks.ketsu.domain.products.Product;
 import com.thoughtworks.ketsu.infrastructure.mongo.mappers.ProductMapper;
 import org.bson.types.ObjectId;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ProductDao implements ProductMapper {
@@ -30,6 +29,16 @@ public class ProductDao implements ProductMapper {
     @Override
     public Product findById(String productId) {
         return buildProduct(prodCollection.findOne(new BasicDBObject("_id", new ObjectId(productId))));
+    }
+
+    @Override
+    public List<Product> findAll() {
+        DBCursor prodObjs = prodCollection.find();
+        List<Product> products = new ArrayList<>();
+        while(prodObjs.hasNext()) {
+            products.add(buildProduct(prodObjs.next()));
+        }
+        return products;
     }
 
     private Product buildProduct(DBObject object) {
