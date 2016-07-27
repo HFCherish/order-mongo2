@@ -18,4 +18,8 @@ public class Routes {
     public URI userUrl(String userId) {
         return URI.create(String.format(baseUri + "users/" + userId));
     }
+
+    public URI orderUrl(String userId, String orderId) {
+        return URI.create(String.format(baseUri + "users/" + userId + "/orders/" + orderId));
+    }
 }

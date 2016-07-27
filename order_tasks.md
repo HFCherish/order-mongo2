@@ -33,7 +33,7 @@
     1. should 404 when user doesn't exist --1 :: 1
 18. order creation
 	18. should return 201 when creating an order (resource.post) --8 :: 7
-	19. should include the creation uri in header location (resource.post) --3
+	19. should include the creation uri in header location (resource.post) --3 :: 2
 	3. --------------------------------------------------
 	20. should have tried to save the order info into database and should able to get the order after created order (repo.findById) --5
 	22. should the order's _id is the same as the created one (resourc.post, repo.save, mapper, database, record; repo.findById, mapper) --11
