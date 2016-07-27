@@ -53,5 +53,11 @@ public class ProductApiTest extends ApiSupport {
         Response response = get(productBaseUrl + "/" + product.getId());
 
         assertThat(response.getStatus(), is(200));
+        Map info = response.readEntity(Map.class);
+        assertThat(info.get("uri").toString(), containsString(productBaseUrl + "/" + product.getId()));
+        assertThat(info.get("name"), is(product.getName()));
+        assertThat(info.get("description"), is(product.getDescription()));
+        assertThat(info.get("_id"), is(product.getId()));
+        assertThat((double)info.get("price"), is(product.getPrice()));
     }
 }

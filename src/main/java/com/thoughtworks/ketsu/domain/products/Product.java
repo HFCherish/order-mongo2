@@ -1,6 +1,12 @@
 package com.thoughtworks.ketsu.domain.products;
 
-public class Product {
+import com.thoughtworks.ketsu.infrastructure.records.Record;
+import com.thoughtworks.ketsu.web.jersey.Routes;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Product implements Record{
     private String name;
     private String id;
     private String description;
@@ -27,5 +33,21 @@ public class Product {
 
     public double getPrice() {
         return price;
+    }
+
+    @Override
+    public Map<String, Object> toRefJson(Routes routes) {
+        return new HashMap(){{
+            put("uri", routes.productUrl(getId()));
+            put("name", getName());
+            put("description", getDescription());
+            put("price", getPrice());
+            put("_id", getId());
+        }};
+    }
+
+    @Override
+    public Map<String, Object> toJson(Routes routes) {
+        return toRefJson(routes);
     }
 }
