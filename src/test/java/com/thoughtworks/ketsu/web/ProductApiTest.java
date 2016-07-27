@@ -4,6 +4,7 @@ import com.thoughtworks.ketsu.domain.products.Product;
 import com.thoughtworks.ketsu.domain.products.ProductRepository;
 import com.thoughtworks.ketsu.support.ApiSupport;
 import com.thoughtworks.ketsu.support.ApiTestRunner;
+import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -59,5 +60,12 @@ public class ProductApiTest extends ApiSupport {
         assertThat(info.get("description"), is(product.getDescription()));
         assertThat(info.get("_id"), is(product.getId()));
         assertThat((double)info.get("price"), is(product.getPrice()));
+    }
+
+    @Test
+    public void should_404_when_get_given_not_exists() {
+        Response response = get(productBaseUrl + "/" + new ObjectId());
+
+        assertThat(response.getStatus(), is(404));
     }
 }

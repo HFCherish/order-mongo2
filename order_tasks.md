@@ -11,7 +11,7 @@
 	6. should return 200 when get some product (resource.get) --4 :: 5
 	7. should the response body contains right uri, _id, name, description, price info (resource.get) --3 :: 4
 	3. --------------------------------------------------
-	4. should return 404 when no products in db --1
+	4. should return 404 when no products in db --1 :: 1
 6. get all products
 	1. should return 200 when get products (resource.get) --2
 	3. --------------------------------------------------
