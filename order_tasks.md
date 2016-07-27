@@ -21,7 +21,7 @@
 11. user register
 	11. should return 201 when register a new user (resource.post) --4 :: 4
 	12. should return 400 when the registered name is null or not composed of letters and numbers, at least one (resource.post) -- 4 :: 4
-	13. should include creation uri in header location (resource.post) --2
+	13. should include creation uri in header location (resource.post) --2 :: 2
 	3. --------------------------------------------------
 	14. should have tried to save the user info into database and should able to get a user after registered (repo.findById) --6
 	16. should the user's _id is the same as the saved one. (resourc.post, repo.save, mapper, database, record; repo.findById, mapper) --9
