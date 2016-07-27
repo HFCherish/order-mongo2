@@ -19,7 +19,7 @@
 	3. --------------------------------------------------
 	2. should the response body contains at least  one item info and contains right uri, name, description, price info (resource.get, record) --2 :: 2
 11. user register
-	11. should return 201 when register a new user (resource.post) --4
+	11. should return 201 when register a new user (resource.post) --4 :: 4
 	12. should return 400 when the registered name is null or not composed of letters and numbers, at least one (resource.post) -- 4
 	13. should include creation uri in header location (resource.post) --2
 	3. --------------------------------------------------

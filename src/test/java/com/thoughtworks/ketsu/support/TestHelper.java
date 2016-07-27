@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TestHelper {
+
+    public static final String USER_NAME = "Petrina";
+
     public static Map<String, Object> productJsonForTest() {
         return new HashMap() {{
             put("name", "Imran");
@@ -17,5 +20,11 @@ public class TestHelper {
 
     public static Product prepareProduct(ProductRepository productRepository) {
         return productRepository.save(productJsonForTest());
+    }
+
+    public static Map<String, Object> userJsonForTest(String name) {
+        return new HashMap() {{
+            put("name", name);
+        }};
     }
 }
