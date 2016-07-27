@@ -6,7 +6,7 @@
 	4. --------------------------------------------------
 	3. should have tried to save the creation data into database and should able to get that product after creation. (repo.save, repo.findById) --8 :: 5
 	4. should that one product's _id is the same as the created one (resourc.post, repo.save, mapper, database, records; repo.findById, mapper) --10 :: 11
-	4. should the creation uri contains product _id in header location -- 2
+	4. should the creation uri contains product _id in header location -- 2 :: 4
 6. get some product
 	6. should return 200 when get some product (resource.get) --4
 	7. should the response body contains right uri, _id, name, description, price info (resource.get) --3

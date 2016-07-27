@@ -1,5 +1,6 @@
 package com.thoughtworks.ketsu.web;
 
+import com.thoughtworks.ketsu.domain.products.ProductRepository;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 import com.thoughtworks.ketsu.web.validators.NullFieldsValidator;
 
@@ -16,6 +17,10 @@ import java.util.Map;
 
 @Path("products")
 public class ProductApi {
+
+    @Context
+    ProductRepository productRepository;
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -25,7 +30,7 @@ public class ProductApi {
         if(nullFields != null) {
             return Response.status(Response.Status.BAD_REQUEST).entity(nullFields).build();
         }
-        return Response.created(routes.productUrl("hkj")).build();
+        return Response.created(routes.productUrl(productRepository.save(info).getId())).build();
     }
 
 }
