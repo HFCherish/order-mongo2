@@ -9,6 +9,7 @@ import java.util.Map;
 public class TestHelper {
 
     public static final String USER_NAME = "Petrina";
+    public static final String INVALID_USER_NAME = "Petrina';L'";
 
     public static Map<String, Object> productJsonForTest() {
         return new HashMap() {{
