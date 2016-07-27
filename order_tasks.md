@@ -9,11 +9,11 @@
 	4. should the creation uri contains product _id in header location -- 2 :: 4
 6. get some product
 	6. should return 200 when get some product (resource.get) --4 :: 5
-	7. should the response body contains right uri, _id, name, description, price info (resource.get) --3 :: 4
+	7. should the response body contains right uri, _id, name, description, price info (resource.get) --3 :: 3
 	3. --------------------------------------------------
 	4. should return 404 when no products in db --1 :: 1
 6. get all products
-	1. should return 200 when get products (resource.get) --2
+	1. should return 200 when get products (resource.get) --2 :: 2
 	3. --------------------------------------------------
 	2. should have tried to search from database and should able to get a least one product if database is not empty (repo.findAll) --2
 	3. should that one product's _id are the same as expected (mapper-findAll) --2
