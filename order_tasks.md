@@ -4,7 +4,7 @@
 	3. should contain creation uri in header location (resource.post) --2 :: 1
 	4. should 400 when the product param is not complete --8 :: 11
 	4. --------------------------------------------------
-	3. should have tried to save the creation data into database and should able to get that product after creation. (repo.save, repo.findById) --8
+	3. should have tried to save the creation data into database and should able to get that product after creation. (repo.save, repo.findById) --8 :: 5
 	4. should that one product's _id is the same as the created one (resourc.post, repo.save, mapper, database, records; repo.findById, mapper) --10
 	4. should the creation uri contains product _id in header location -- 2
 6. get some product
