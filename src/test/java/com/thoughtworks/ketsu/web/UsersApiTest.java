@@ -1,15 +1,16 @@
 package com.thoughtworks.ketsu.web;
 
+import com.thoughtworks.ketsu.domain.users.User;
+import com.thoughtworks.ketsu.domain.users.UserRepository;
 import com.thoughtworks.ketsu.support.ApiSupport;
 import com.thoughtworks.ketsu.support.ApiTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
-import static com.thoughtworks.ketsu.support.TestHelper.INVALID_USER_NAME;
-import static com.thoughtworks.ketsu.support.TestHelper.USER_NAME;
-import static com.thoughtworks.ketsu.support.TestHelper.userJsonForTest;
+import static com.thoughtworks.ketsu.support.TestHelper.*;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -17,6 +18,9 @@ import static org.hamcrest.core.Is.is;
 @RunWith(ApiTestRunner.class)
 public class UsersApiTest extends ApiSupport {
     private String userBaseUrl = "/users";
+
+    @Inject
+    UserRepository userRepository;
 
     @Test
     public void should_register() {
@@ -33,5 +37,15 @@ public class UsersApiTest extends ApiSupport {
         Response response = post(userBaseUrl, userJsonForTest(INVALID_USER_NAME));
 
         assertThat(response.getStatus(), is(400));
+    }
+
+    @Test
+    public void should_get_one_user() {
+        User user = prepareUser(userRepository);
+
+        Response response = get(userBaseUrl + "/" + user.getId());
+
+        assertThat(response.getStatus(), is(200));
+
     }
 }
