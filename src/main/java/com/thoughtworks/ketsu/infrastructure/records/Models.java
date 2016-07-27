@@ -4,7 +4,9 @@ import com.google.inject.AbstractModule;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.thoughtworks.ketsu.Dao.ProductDao;
 import com.thoughtworks.ketsu.domain.products.ProductRepository;
+import com.thoughtworks.ketsu.infrastructure.mongo.mappers.ProductMapper;
 import com.thoughtworks.ketsu.infrastructure.repositories.ProductRepositoryImpl;
 
 import java.net.UnknownHostException;
@@ -62,6 +64,7 @@ public class Models extends AbstractModule {
         DB db = mongoClient.getDB("mongodb_store");
         bind(DB.class).toInstance(db);
         bind(ProductRepository.class).to(ProductRepositoryImpl.class);
+        bind(ProductMapper.class).to(ProductDao.class);
     }
 //
 //    private void bindPersistence() {
