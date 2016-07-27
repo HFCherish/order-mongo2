@@ -37,6 +37,7 @@ public class UserDao implements UserMapper {
 
         DBObject userObj = userCollection.findOne(new BasicDBObject("_id", new ObjectId(id)));
         User user = buildUser(userObj);
+        if(user == null) return null;
         injector.injectMembers(user);
         return user;
     }
