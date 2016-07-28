@@ -120,6 +120,7 @@ public class OrdersApiTest extends ApiSupport {
         List<Map> orders = response.readEntity(List.class);
         assertThat(orders.size(), is(1));
         verifyBasicOrderInfo(order, orders.get(0));
-//        assertThat(orders.get(0).get("order_items"), is(nullValue()));
+        Object order_items = orders.get(0).get("order_items");
+        assertThat(order_items, is(nullValue()));
     }
 }
