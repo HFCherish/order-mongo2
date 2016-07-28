@@ -20,6 +20,7 @@ import java.util.Map;
 
 import static com.thoughtworks.ketsu.support.TestHelper.*;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -82,12 +83,7 @@ public class OrdersApiTest extends ApiSupport {
 
         assertThat(response.getStatus(), is(200));
         Map info = response.readEntity(Map.class);
-        assertThat(info.get("uri").toString(), containsString(orderBaseUrl + "/" + order.getId()));
-        assertThat(info.get("name"), is(order.getName()));
-        assertThat(info.get("address"), is(order.getAddress()));
-        assertThat(info.get("phone"), is(order.getPhone()));
-        assertThat((double)info.get("total_price"), is(order.getTotalPrice()));
-        assertThat(info.get("created_at").toString(), is(order.getCreatedAt().toString()));
+        verifyBasicOrderInfo(order, info);
 
         List<Map> items = (List)info.get("order_items");
         assertThat(items.size(), is(1));
@@ -95,6 +91,15 @@ public class OrdersApiTest extends ApiSupport {
         assertThat((double)items.get(0).get("amount"), is(product.getPrice()));
         assertThat(items.get(0).get("uri").toString(), containsString("/products/" + product.getId()));
         assertThat(items.get(0).get("quantity"), is(order.getOrderItems().get(0).getQuantity()));
+    }
+
+    private void verifyBasicOrderInfo(Order order, Map info) {
+        assertThat(info.get("uri").toString(), containsString(orderBaseUrl + "/" + order.getId()));
+        assertThat(info.get("name"), is(order.getName()));
+        assertThat(info.get("address"), is(order.getAddress()));
+        assertThat(info.get("phone"), is(order.getPhone()));
+        assertThat((double)info.get("total_price"), is(order.getTotalPrice()));
+        assertThat(info.get("created_at").toString(), is(order.getCreatedAt().toString()));
     }
 
     @Test
@@ -112,6 +117,9 @@ public class OrdersApiTest extends ApiSupport {
         Response response = get(orderBaseUrl);
 
         assertThat(response.getStatus(), is(200));
-
+        List<Map> orders = response.readEntity(List.class);
+        assertThat(orders.size(), is(1));
+        verifyBasicOrderInfo(order, orders.get(0));
+//        assertThat(orders.get(0).get("order_items"), is(nullValue()));
     }
 }
