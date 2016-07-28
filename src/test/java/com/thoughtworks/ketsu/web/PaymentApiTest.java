@@ -2,6 +2,7 @@ package com.thoughtworks.ketsu.web;
 
 import com.thoughtworks.ketsu.domain.products.ProductRepository;
 import com.thoughtworks.ketsu.domain.users.Order;
+import com.thoughtworks.ketsu.domain.users.Payment;
 import com.thoughtworks.ketsu.domain.users.UserRepository;
 import com.thoughtworks.ketsu.support.ApiSupport;
 import com.thoughtworks.ketsu.support.ApiTestRunner;
@@ -51,7 +52,14 @@ public class PaymentApiTest extends ApiSupport {
         Response response = post(paymentUrl, info);
 
         assertThat(response.getStatus(), is(400));
-
-
     }
+
+    @Test
+    public void should_get_pay() {
+        Payment payment = preparePayment(order);
+        Response response = get(paymentUrl);
+
+        assertThat(response.getStatus(), is(200));
+    }
+
 }
