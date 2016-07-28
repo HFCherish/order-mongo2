@@ -34,6 +34,8 @@ public class OrdersApi {
 
     @Path("{id}")
     public OrderApi getOrder(@PathParam("id") String id) {
-        return new OrderApi(null);
+        return user.findOrderById(id)
+                .map(OrderApi::new)
+                .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
     }
 }

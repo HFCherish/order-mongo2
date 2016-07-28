@@ -80,6 +80,11 @@ public class OrdersApiTest extends ApiSupport {
         Response response = get(orderBaseUrl + "/" + order.getId());
 
         assertThat(response.getStatus(), is(200));
-
+        Map info = response.readEntity(Map.class);
+        assertThat(info.get("uri").toString(), containsString(orderBaseUrl + "/" + order.getId()));
+        assertThat(info.get("name"), is(order.getName()));
+        assertThat(info.get("address"), is(order.getAddress()));
+        assertThat(info.get("phone"), is(order.getPhone()));
+        assertThat(info.get("created_at").toString(), is(order.getCreatedAt().toString()));
     }
 }

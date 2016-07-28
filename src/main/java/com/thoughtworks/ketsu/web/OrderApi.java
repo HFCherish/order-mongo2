@@ -16,7 +16,7 @@ public class OrderApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getOrder() {
-        return "";
+    public Order getOrder() {
+        return order;
     }
 }
