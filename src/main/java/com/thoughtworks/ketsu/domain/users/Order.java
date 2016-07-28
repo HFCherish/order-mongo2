@@ -1,6 +1,7 @@
 package com.thoughtworks.ketsu.domain.users;
 
 import com.thoughtworks.ketsu.infrastructure.records.Record;
+import com.thoughtworks.ketsu.web.PaymentApi;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 import org.bson.types.ObjectId;
 
@@ -78,5 +79,13 @@ public class Order implements Record {
             total += orderItem.getAmount() * orderItem.getQuantity();
         }
         return total;
+    }
+
+    public Payment pay(Map<String, Object> info) {
+        return null;
+    }
+
+    public Optional<Payment> getPayment() {
+        return Optional.ofNullable(new Payment());
     }
 }
