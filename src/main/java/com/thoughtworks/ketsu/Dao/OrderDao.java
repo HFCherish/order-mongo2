@@ -67,7 +67,8 @@ public class OrderDao implements OrderMapper {
     public Payment pay(Map<String, Object> info, String orderId) {
         info.put("created_at", new Date());
         BasicDBObject orderIdObj = new BasicDBObject("_id", new ObjectId(orderId));
-        orderCollection.update(orderIdObj, new BasicDBObject("$set", new BasicDBObject(info)));
+        orderCollection.update(orderIdObj,
+                new BasicDBObject("$set", new BasicDBObject("payment", new BasicDBObject(info))));
         return buildPayment(orderCollection.findOne(orderIdObj));
     }
 
@@ -95,10 +96,11 @@ public class OrderDao implements OrderMapper {
     }
 
     private Payment buildPayment(DBObject object) {
-        if(object == null)  return null;
-        return new Payment(PayType.valueOf(object.get("pay_type").toString()),
-                (double) object.get("amount"),
+        Map payment = (Map)object.get("payment");
+        if(payment == null)  return null;
+        return new Payment(PayType.valueOf(payment.get("pay_type").toString()),
+                (double) payment.get("amount"),
                 buildOrder(object),
-                (Date)object.get("created_at"));
+                (Date)payment.get("created_at"));
     }
 }

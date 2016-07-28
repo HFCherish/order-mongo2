@@ -69,4 +69,11 @@ public class PaymentApiTest extends ApiSupport {
         assertThat(info.get("created_at").toString(), is(payment.getCreatedAt().toString()));
     }
 
+    @Test
+    public void should_404_when_get_given_not_exist() {
+        Response response = get(paymentUrl);
+
+        assertThat(response.getStatus(), is(404));
+
+    }
 }
