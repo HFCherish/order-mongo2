@@ -1,4 +1,4 @@
-#tasks ()
+#tasks (266 :: 263)
 2. product creation
 	2. should return 201 when create a product  (resource.post)  --5 :: 5
 	3. should contain creation uri in header location (resource.post) --2 :: 1
@@ -55,9 +55,9 @@
 	29. should have tried to fetch all orders from database and should get one order when there's one order in database and order's _id is the same as the created one (resourc.post, repo.save, mapper, database, record; repo.findAll, mapper) --12 :: 8
 	3. --------------------------------------------------
 	29. should the response body contain at least one order info and right uri, name, address, phone, total\_price, created_at info (resource.get, record) --2 :: 2
-	1. should the response body doesn't contain order item info -- 1
+	1. should the response body doesn't contain order item info -- 2 :: 1
 29. create payment
-	30. should return 201 when pay (resource.post) --7
+	30. should return 201 when pay (resource.post) --7 :: 6
 	1. should 400 when input doesn't contain pay_type, amount -- 2 :: 2
 	3. --------------------------------------------------
 	31. should try to save the payment info into database and should able to get that payment after pay (resourc.post, repo.findByOrderId) --3 :: 4
