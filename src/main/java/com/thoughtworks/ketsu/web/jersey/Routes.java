@@ -22,4 +22,8 @@ public class Routes {
     public URI orderUrl(String userId, String orderId) {
         return URI.create(String.format(baseUri + "users/" + userId + "/orders/" + orderId));
     }
+
+    public URI paymentUrl(String userId, String orderId) {
+        return URI.create(String.format(baseUri + "users/" + userId + "/orders/" + orderId + "/payment"));
+    }
 }
