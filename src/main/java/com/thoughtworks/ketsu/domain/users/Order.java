@@ -63,6 +63,10 @@ public class Order implements Record {
         return map;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     public Date getCreatedAt() {
         return new ObjectId(id).getDate();
     }
