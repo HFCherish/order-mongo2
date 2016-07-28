@@ -23,6 +23,9 @@ public class OrderDao implements OrderMapper {
     Injector injector;
 
     @Inject
+    ProductDao productDao;
+
+    @Inject
     public OrderDao(DB db) {
         orderCollection = db.getCollection("orders");
     }
@@ -30,6 +33,9 @@ public class OrderDao implements OrderMapper {
     @Override
     public Order save(Map<String, Object> info, String userId) {
         info.put("user_id", userId);
+        for (Map item : (List<Map>) info.get("order_items")) {
+            item.put("amount", productDao.findById(item.get("product_id").toString()).getPrice());
+        }
         orderCollection.insert(new BasicDBObject(info));
         Order order = buildOrder(orderCollection.findOne());
         injector.injectMembers(order);
@@ -60,7 +66,8 @@ public class OrderDao implements OrderMapper {
         List<OrderItem> items = new ArrayList<>();
         for (Map item : (List<Map>) object.get("order_items")) {
             items.add(new OrderItem(item.get("product_id").toString(),
-                    (int) item.get("quantity")));
+                            (int) item.get("quantity"),
+                    (double) item.get("amount")));
         }
         return items;
     }

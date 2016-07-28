@@ -91,6 +91,8 @@ public class OrdersApiTest extends ApiSupport {
         List<Map> items = (List)info.get("order_items");
         assertThat(items.size(), is(1));
         assertThat(items.get(0).get("product_id"), is(product.getId()));
+        assertThat((double)items.get(0).get("amount"), is(product.getPrice()));
+        assertThat(items.get(0).get("uri").toString(), containsString("/products/" + product.getId()));
         assertThat(items.get(0).get("quantity"), is(order.getOrderItems().get(0).getQuantity()));
     }
 }
