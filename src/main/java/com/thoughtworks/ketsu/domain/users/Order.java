@@ -1,10 +1,11 @@
 package com.thoughtworks.ketsu.domain.users;
 
+import com.thoughtworks.ketsu.infrastructure.mongo.mappers.OrderMapper;
 import com.thoughtworks.ketsu.infrastructure.records.Record;
-import com.thoughtworks.ketsu.web.PaymentApi;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 import org.bson.types.ObjectId;
 
+import javax.inject.Inject;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,9 @@ public class Order implements Record {
     private String address;
     private String phone;
     private List<OrderItem> orderItems;
+
+    @Inject
+    OrderMapper orderMapper;
 
     public Order(String id, String userId, String name, String address, String phone, List<OrderItem> orderItems) {
         this.id = id;
@@ -82,10 +86,10 @@ public class Order implements Record {
     }
 
     public Payment pay(Map<String, Object> info) {
-        return null;
+        return orderMapper.pay(info, id);
     }
 
     public Optional<Payment> getPayment() {
-        return Optional.ofNullable(new Payment());
+        return Optional.ofNullable(orderMapper.getPaymentOf(id));
     }
 }

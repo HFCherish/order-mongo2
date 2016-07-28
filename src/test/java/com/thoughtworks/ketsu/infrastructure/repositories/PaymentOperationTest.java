@@ -37,6 +37,7 @@ public class PaymentOperationTest {
         Optional<Payment> fetched = order.getPayment();
 
         assertThat(fetched.isPresent(), is(true));
+        assertThat(fetched.get().getOrder().getId(), is(order.getId()));
 
     }
 }

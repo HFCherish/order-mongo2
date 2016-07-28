@@ -4,6 +4,8 @@ import com.google.inject.Injector;
 import com.mongodb.*;
 import com.thoughtworks.ketsu.domain.users.Order;
 import com.thoughtworks.ketsu.domain.users.OrderItem;
+import com.thoughtworks.ketsu.domain.users.PayType;
+import com.thoughtworks.ketsu.domain.users.Payment;
 import com.thoughtworks.ketsu.infrastructure.mongo.mappers.OrderMapper;
 import org.bson.types.ObjectId;
 
@@ -55,6 +57,18 @@ public class OrderDao implements OrderMapper {
         return orders;
     }
 
+    @Override
+    public Payment getPaymentOf(String orderId) {
+        return buildPayment(orderCollection.findOne(new BasicDBObject("_id", new ObjectId(orderId))));
+    }
+
+    @Override
+    public Payment pay(Map<String, Object> info, String orderId) {
+        BasicDBObject orderIdObj = new BasicDBObject("_id", new ObjectId(orderId));
+        orderCollection.update(orderIdObj, new BasicDBObject("$set", new BasicDBObject(info)));
+        return buildPayment(orderCollection.findOne(orderIdObj));
+    }
+
     private Order buildOrder(DBObject object) {
         if (object == null) return null;
 
@@ -76,5 +90,12 @@ public class OrderDao implements OrderMapper {
                     (double) item.get("amount")));
         }
         return items;
+    }
+
+    private Payment buildPayment(DBObject object) {
+        if(object == null)  return null;
+        return new Payment(PayType.valueOf(object.get("pay_type").toString()),
+                (double) object.get("amount"),
+                buildOrder(object));
     }
 }

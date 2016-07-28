@@ -61,7 +61,7 @@
 	1. should 400 when input doesn't contain pay_type, amount -- 2 :: 2
 	3. --------------------------------------------------
 	31. should try to save the payment info into database and should able to get that payment after pay (resourc.post, repo.findByOrderId) --3 :: 4
-	32. should the order _id of that payment is as expected (resourc.post, repo.save, mapper, database, record; repo.findByOrderId, mapper) --10
+	32. should the order _id of that payment is as expected (resourc.post, repo.save, mapper, database, record; repo.findByOrderId, mapper) --10 :: 8
 34. get payment of some order
 	32. should return 200 when get payment (resourc.get) --6 :: 6
 	35. should the response body include right pay_type, amount, order_uri & payment uri (resource.get) --7
