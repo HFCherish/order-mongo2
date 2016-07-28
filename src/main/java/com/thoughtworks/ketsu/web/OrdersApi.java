@@ -24,8 +24,10 @@ public class OrdersApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response buildOrder(Map<String, Object> info,
-                               @Context Routes routes) {
-        Map<String, List<Map>> nullFields = new OrderValidator().getNullFields(info);
+                               @Context Routes routes,
+                               @Context OrderValidator orderValidator) {
+        Map<String, List> nullFields = orderValidator.getNullFields(info);
+
         if(nullFields != null) {
             return Response.status(Response.Status.BAD_REQUEST).entity(nullFields).build();
         }

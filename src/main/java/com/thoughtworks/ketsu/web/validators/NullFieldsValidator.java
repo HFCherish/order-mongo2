@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class NullFieldsValidator {
 
-    public Map<String, List<Map>> getNullFields(List<String> toValidates, Map<String, Object> info) {
+    public Map<String, List> getNullFields(List<String> toValidates, Map<String, Object> info) {
         List nullFields = new ArrayList<>();
 
         for(String toValidate: toValidates) {

@@ -25,7 +25,7 @@ public class ProductApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(Map<String, Object> info,
                            @Context Routes routes) {
-        Map<String, List<Map>> nullFields = new NullFieldsValidator().getNullFields(Arrays.asList("name", "description", "price"), info);
+        Map<String, List> nullFields = new NullFieldsValidator().getNullFields(Arrays.asList("name", "description", "price"), info);
         if(nullFields != null) {
             return Response.status(Response.Status.BAD_REQUEST).entity(nullFields).build();
         }
