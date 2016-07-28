@@ -4,10 +4,12 @@ import com.google.inject.AbstractModule;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.thoughtworks.ketsu.Dao.OrderDao;
 import com.thoughtworks.ketsu.Dao.ProductDao;
 import com.thoughtworks.ketsu.Dao.UserDao;
 import com.thoughtworks.ketsu.domain.products.ProductRepository;
 import com.thoughtworks.ketsu.domain.users.UserRepository;
+import com.thoughtworks.ketsu.infrastructure.mongo.mappers.OrderMapper;
 import com.thoughtworks.ketsu.infrastructure.mongo.mappers.ProductMapper;
 import com.thoughtworks.ketsu.infrastructure.mongo.mappers.UserMapper;
 import com.thoughtworks.ketsu.infrastructure.repositories.ProductRepositoryImpl;
@@ -71,6 +73,7 @@ public class Models extends AbstractModule {
         bind(ProductMapper.class).to(ProductDao.class);
         bind(UserRepository.class).to(UserRepositoryImpl.class);
         bind(UserMapper.class).to(UserDao.class);
+        bind(OrderMapper.class).to(OrderDao.class);
     }
 //
 //    private void bindPersistence() {

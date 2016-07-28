@@ -35,8 +35,8 @@
 	18. should return 201 when creating an order (resource.post) --8 :: 7
 	19. should include the creation uri in header location (resource.post) --3 :: 2
 	3. --------------------------------------------------
-	20. should have tried to save the order info into database and should able to get the order after created order (repo.findById) --5
-	22. should the order's _id is the same as the created one (resourc.post, repo.save, mapper, database, record; repo.findById, mapper) --11
+	20. should have tried to save the order info into database and should able to get the order after created order (repo.findById) --5 :: 6
+	22. should the order's _id is the same as the created one (resourc.post, repo.save, mapper, database, record; repo.findById, mapper) --11 :: 11
 	3. --------------------------------------------------
 	4. should the creation uri contains order _id in header location -- 1
 	2. should return 400 when the input doesn't contain name, address, phone --5

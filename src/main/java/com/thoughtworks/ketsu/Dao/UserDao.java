@@ -27,9 +27,9 @@ public class UserDao implements UserMapper {
     @Override
     public User save(Map<String, Object> info) {
         userCollection.insert(new BasicDBObject(info));
-        DBObject user = userCollection.findOne();
+        User user = buildUser(userCollection.findOne());
         injector.injectMembers(user);
-        return buildUser(user);
+        return user;
     }
 
     @Override
