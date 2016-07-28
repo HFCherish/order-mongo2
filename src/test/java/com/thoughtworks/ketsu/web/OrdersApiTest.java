@@ -96,4 +96,12 @@ public class OrdersApiTest extends ApiSupport {
         assertThat(items.get(0).get("uri").toString(), containsString("/products/" + product.getId()));
         assertThat(items.get(0).get("quantity"), is(order.getOrderItems().get(0).getQuantity()));
     }
+
+    @Test
+    public void should_404_when_get_given_not_exits() {
+        Response response = get(orderBaseUrl + "/" + new ObjectId());
+
+        assertThat(response.getStatus(), is(404));
+
+    }
 }
