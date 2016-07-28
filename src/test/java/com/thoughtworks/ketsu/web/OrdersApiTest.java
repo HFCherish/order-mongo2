@@ -2,6 +2,7 @@ package com.thoughtworks.ketsu.web;
 
 import com.thoughtworks.ketsu.domain.products.Product;
 import com.thoughtworks.ketsu.domain.products.ProductRepository;
+import com.thoughtworks.ketsu.domain.users.Order;
 import com.thoughtworks.ketsu.domain.users.User;
 import com.thoughtworks.ketsu.domain.users.UserRepository;
 import com.thoughtworks.ketsu.support.ApiSupport;
@@ -16,9 +17,7 @@ import javax.ws.rs.core.Response;
 
 import java.util.Map;
 
-import static com.thoughtworks.ketsu.support.TestHelper.orderJsonForTest;
-import static com.thoughtworks.ketsu.support.TestHelper.prepareProduct;
-import static com.thoughtworks.ketsu.support.TestHelper.prepareUser;
+import static com.thoughtworks.ketsu.support.TestHelper.*;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -72,6 +71,15 @@ public class OrdersApiTest extends ApiSupport {
 
         assertThat(response.getStatus(), is(400));
 
+    }
+
+    @Test
+    public void should_get_some_order() {
+        Order order = prepareOrder(user,product);
+
+        Response response = get(orderBaseUrl + "/" + order.getId());
+
+        assertThat(response.getStatus(), is(200));
 
     }
 }
