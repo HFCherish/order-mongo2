@@ -11,6 +11,7 @@ import org.bson.types.ObjectId;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +65,7 @@ public class OrderDao implements OrderMapper {
 
     @Override
     public Payment pay(Map<String, Object> info, String orderId) {
+        info.put("created_at", new Date());
         BasicDBObject orderIdObj = new BasicDBObject("_id", new ObjectId(orderId));
         orderCollection.update(orderIdObj, new BasicDBObject("$set", new BasicDBObject(info)));
         return buildPayment(orderCollection.findOne(orderIdObj));
@@ -96,6 +98,7 @@ public class OrderDao implements OrderMapper {
         if(object == null)  return null;
         return new Payment(PayType.valueOf(object.get("pay_type").toString()),
                 (double) object.get("amount"),
-                buildOrder(object));
+                buildOrder(object),
+                (Date)object.get("created_at"));
     }
 }

@@ -66,6 +66,7 @@ public class PaymentApiTest extends ApiSupport {
         assertThat(info.get("uri").toString(), containsString(paymentUrl));
         assertThat(info.get("pay_type").toString(), is(payment.getPayType().name()));
         assertThat((double)info.get("amount"), is(payment.getAmount()));
+        assertThat(info.get("created_at").toString(), is(payment.getCreatedAt().toString()));
     }
 
 }

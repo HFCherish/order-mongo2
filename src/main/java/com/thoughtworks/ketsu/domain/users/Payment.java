@@ -3,6 +3,7 @@ package com.thoughtworks.ketsu.domain.users;
 import com.thoughtworks.ketsu.infrastructure.records.Record;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,11 +11,17 @@ public class Payment implements Record{
     private PayType payType;
     private double amount;
     private Order order;
+    private Date createdAt;
 
-    public Payment(PayType payType, double amount, Order order) {
+    public Payment(PayType payType, double amount, Order order, Date createdAt) {
         this.payType = payType;
         this.amount = amount;
         this.order = order;
+        this.createdAt = createdAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
     public Order getOrder() {
@@ -36,6 +43,7 @@ public class Payment implements Record{
             put("uri", routes.paymentUrl(order.getUserId(), order.getId()));
             put("amount", amount);
             put("pay_type", payType);
+            put("created_at", createdAt.toString());
         }};
     }
 
