@@ -9,7 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.net.URI;
 import java.util.Map;
 
 public class OrdersApi {
@@ -24,6 +23,6 @@ public class OrdersApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response buildOrder(Map<String, Object> info,
                                @Context Routes routes) {
-        return Response.created(routes.orderUrl(user.getId(), "orderId")).build();
+        return Response.created(routes.orderUrl(user.getId(), user.placeOrder(info).getId())).build();
     }
 }
