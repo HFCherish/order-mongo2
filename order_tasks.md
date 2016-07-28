@@ -50,7 +50,7 @@
  	1. should the response body contain right total\_price info (resource.get, record) --3 :: 3
 	4. should return 404 when no order in db --1 :: 1
 27. get all orders of some user
-	28. should return 200 when review all orders of some user (resource.get) --2
+	28. should return 200 when review all orders of some user (resource.get) --2 :: 1
 	3. --------------------------------------------------
 	29. should have tried to fetch all orders from database and should get one order when there's one order in database and order's _id is the same as the created one (resourc.post, repo.save, mapper, database, record; repo.findAll, mapper) --12
 	3. --------------------------------------------------
