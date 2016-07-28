@@ -4,10 +4,8 @@ import com.thoughtworks.ketsu.infrastructure.records.Record;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 import org.bson.types.ObjectId;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Order implements Record{
     private String id;
@@ -18,12 +16,13 @@ public class Order implements Record{
     private List<OrderItem> orderItems;
     private Date createdAt;
 
-    public Order(String id, String userId, String name, String address, String phone) {
+    public Order(String id, String userId, String name, String address, String phone, List<OrderItem> orderItems) {
         this.id = id;
         this.userId = userId;
         this.name = name;
         this.address = address;
         this.phone = phone;
+        this.orderItems = orderItems;
     }
 
     public String getId() {
@@ -59,7 +58,9 @@ public class Order implements Record{
 
     @Override
     public Map<String, Object> toJson(Routes routes) {
-        return toRefJson(routes);
+        Map<String, Object> map = toRefJson(routes);
+        map.put("order_items", orderItems.stream().map(orderItem -> orderItem.toJson(routes)).collect(Collectors.toList()));
+        return map;
     }
 
     public Date getCreatedAt() {
