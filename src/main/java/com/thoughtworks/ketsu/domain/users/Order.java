@@ -7,14 +7,13 @@ import org.bson.types.ObjectId;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Order implements Record{
+public class Order implements Record {
     private String id;
     private String userId;
     private String name;
     private String address;
     private String phone;
     private List<OrderItem> orderItems;
-    private Date createdAt;
 
     public Order(String id, String userId, String name, String address, String phone, List<OrderItem> orderItems) {
         this.id = id;
@@ -52,6 +51,7 @@ public class Order implements Record{
             put("name", name);
             put("address", address);
             put("phone", phone);
+            put("total_price", getTotalPrice());
             put("created_at", getCreatedAt().toString());
         }};
     }
@@ -65,5 +65,14 @@ public class Order implements Record{
 
     public Date getCreatedAt() {
         return new ObjectId(id).getDate();
+    }
+
+    public double getTotalPrice() {
+
+        double total = 0;
+        for (OrderItem orderItem : orderItems) {
+            total += orderItem.getAmount() * orderItem.getQuantity();
+        }
+        return total;
     }
 }
