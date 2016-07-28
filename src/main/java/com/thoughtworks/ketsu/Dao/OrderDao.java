@@ -1,10 +1,7 @@
 package com.thoughtworks.ketsu.Dao;
 
 import com.google.inject.Injector;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
+import com.mongodb.*;
 import com.thoughtworks.ketsu.domain.users.Order;
 import com.thoughtworks.ketsu.domain.users.OrderItem;
 import com.thoughtworks.ketsu.infrastructure.mongo.mappers.OrderMapper;
@@ -37,29 +34,38 @@ public class OrderDao implements OrderMapper {
             item.put("amount", productDao.findById(item.get("product_id").toString()).getPrice());
         }
         orderCollection.insert(new BasicDBObject(info));
-        Order order = buildOrder(orderCollection.findOne());
-        injector.injectMembers(order);
-        return order;
+        return buildOrder(orderCollection.findOne());
     }
 
     @Override
     public Order findById(String orderId) {
         DBObject dbObject = orderCollection.findOne(new BasicDBObject("_id", new ObjectId(orderId)));
         if (dbObject == null) return null;
-        Order order = buildOrder(dbObject);
-        injector.injectMembers(order);
-        return order;
+
+        return buildOrder(dbObject);
+    }
+
+    @Override
+    public List<Order> findAllOf(String userId) {
+        DBCursor objects = orderCollection.find(new BasicDBObject("user_id", userId));
+        List<Order> orders = new ArrayList<>();
+        while(objects.hasNext()) {
+            orders.add(buildOrder(objects.next()));
+        }
+        return orders;
     }
 
     private Order buildOrder(DBObject object) {
         if (object == null) return null;
 
-        return new Order(object.get("_id").toString(),
+        Order order = new Order(object.get("_id").toString(),
                 object.get("user_id").toString(),
                 object.get("name").toString(),
                 object.get("address").toString(),
                 object.get("phone").toString(),
                 buildOrderItems(object));
+        injector.injectMembers(order);
+        return order;
     }
 
     private List<OrderItem> buildOrderItems(DBObject object) {
